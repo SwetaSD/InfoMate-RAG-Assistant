@@ -5,34 +5,20 @@ It is designed for **accuracy, reliability, and offline use**, avoiding cloud AP
 
 ## ✨ Features
 
-- 📄 Upload **PDF** and **Word (DOCX)** documents  
-- 🔍 Semantic search using **FAISS vector database**  
-- 🧠 Local embeddings via **Ollama (`nomic-embed-text`)**  
-- 🤖 Local LLM inference using **`phi3:mini`**  
-- 📚 Multi-document understanding  
-- 🧩 Chunking-based retrieval for large documents  
-- 🚫 No hallucinations — answers are grounded in document context  
-- 🌐 Runs completely **offline**
+-  Upload **PDF** and **Word (DOCX)** documents  
+-  Semantic search using **FAISS vector database**  
+-  Local embeddings via **Ollama (`nomic-embed-text`)**  
+-  Local LLM inference using **`phi3:mini`**  
+-  Multi-document understanding  
+-  Chunking-based retrieval for large documents  
+-  No hallucinations — answers are grounded in document context  
+-  Runs completely **offline**
 
 ---
 
 ## 🏗️ Architecture Overview
 
-Documents (PDF/DOCX)
-↓
-Text Extraction
-↓
-Text Chunking
-↓
-Vector Embeddings (Ollama)
-↓
-FAISS Vector Store
-↓
-Retriever (Top-K chunks)
-↓
-Local LLM (phi3:mini)
-↓
-Grounded Answer
+Documents (PDF/DOCX) -> Text Extraction -> Text Chunking -> Vector Embeddings (Ollama) -> FAISS Vector Store -> Retriever (Top-K chunks) -> Local LLM (phi3:mini) -> Grounded Answer
 
 ---
 
