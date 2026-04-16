@@ -9,8 +9,8 @@ def create_faiss_index(texts, index_path=None):
 
     # 🔹 Text splitter (VERY IMPORTANT)
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=400,
-        chunk_overlap=50
+        chunk_size=100,
+        chunk_overlap=150
     )
 
     documents = []

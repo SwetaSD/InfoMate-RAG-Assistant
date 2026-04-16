@@ -56,7 +56,7 @@ if st.button("🚀 Process Documents"):
             )
 
             # Build QA chain
-            st.session_state.qa = build_qa_chain(vectorstore, k=1)
+            st.session_state.qa = build_qa_chain(vectorstore, k=5)
 
         st.success("✅ Documents processed and indexed successfully!")
 
@@ -70,7 +70,7 @@ if "qa" not in st.session_state and index_path.exists():
         embeddings,
         allow_dangerous_deserialization=True
     )
-    st.session_state.qa = build_qa_chain(vectorstore, k=1)
+    st.session_state.qa = build_qa_chain(vectorstore, k=5)
 
 # -----------------------------
 # Question answering
