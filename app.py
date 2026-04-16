@@ -15,6 +15,16 @@ st.set_page_config(page_title="InfoMate – RAG Assistant", layout="wide")
 st.title("📘 InfoMate – RAG Assistant")
 
 # -----------------------------
+# Configuration Sidebar
+# -----------------------------
+st.sidebar.header("⚙️ Advanced Settings")
+st.sidebar.markdown("Adjust these parameters to balance between precision and deep context.")
+
+chunk_size = st.sidebar.slider("Chunk Size (Characters)", min_value=200, max_value=2000, value=1000, step=100)
+chunk_overlap = st.sidebar.slider("Chunk Overlap", min_value=0, max_value=500, value=150, step=50)
+retriever_k = st.sidebar.slider("Retriever 'k' (Context Chunks)", min_value=1, max_value=10, value=5, step=1)
+
+# -----------------------------
 # FAISS index path
 # -----------------------------
 index_path = Path("faiss_index")
@@ -36,8 +46,6 @@ docx_files = st.file_uploader(
     accept_multiple_files=True
 )
 
-
-
 # -----------------------------
 # Process documents
 # -----------------------------
@@ -49,14 +57,16 @@ if st.button("🚀 Process Documents"):
             # Load text from documents
             texts = load_documents(pdf_files, docx_files)
 
-            # Create FAISS index
+            # Create FAISS index (PASSING THE SLIDER VARIABLES HERE)
             vectorstore = create_faiss_index(
                 texts,
-                index_path=str(index_path)
+                index_path=str(index_path),
+                chunk_size=chunk_size,
+                chunk_overlap=chunk_overlap
             )
 
-            # Build QA chain
-            st.session_state.qa = build_qa_chain(vectorstore, k=1)
+            # Build QA chain (PASSING THE SLIDER VARIABLE HERE)
+            st.session_state.qa = build_qa_chain(vectorstore, k=retriever_k)
 
         st.success("✅ Documents processed and indexed successfully!")
 
@@ -70,7 +80,8 @@ if "qa" not in st.session_state and index_path.exists():
         embeddings,
         allow_dangerous_deserialization=True
     )
-    st.session_state.qa = build_qa_chain(vectorstore, k=1)
+    # Build QA chain (PASSING THE SLIDER VARIABLE HERE)
+    st.session_state.qa = build_qa_chain(vectorstore, k=retriever_k)
 
 # -----------------------------
 # Question answering

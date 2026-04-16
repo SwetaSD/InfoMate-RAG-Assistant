@@ -4,13 +4,13 @@ from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
-def create_faiss_index(texts, index_path=None):
+def create_faiss_index(texts, index_path=None, chunk_size=1000, chunk_overlap=150):
     embeddings = OllamaEmbeddings(model="nomic-embed-text")
 
     # 🔹 Text splitter (VERY IMPORTANT)
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=400,
-        chunk_overlap=50
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap
     )
 
     documents = []
